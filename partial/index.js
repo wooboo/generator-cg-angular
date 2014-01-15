@@ -28,11 +28,17 @@ PartialGenerator.prototype.askFor = function askFor() {
 	var prompts = [{
 		name: 'route',
 		message: 'Enter your route name (i.e. /mypartial/:id).  If you don\'t want a route added for you, leave this empty.'
-	}];
+	},{
+        name: 'group',
+        message: 'Enter the group name (i.e. employees).  If you don\'t want to group, leave this empty.'
+    }];
 
 	this.prompt(prompts, function (props) {
 		this.route = props.route;
-
+        this.group = '';
+        if(props.group){
+            this.group = '/'+props.group;
+        }
 		cb();
 	}.bind(this));
 };
@@ -41,19 +47,19 @@ PartialGenerator.prototype.files = function files() {
 
 	this.ctrlname = _.camelize(_.classify(this.name)) + 'Ctrl';
 
-	this.template('partial.js', 'partial/'+this.name+'/'+this.name+'.js');
-	this.template('partial.html', 'partial/'+this.name+'/'+this.name+'.html');
-	this.template('partial.less', 'partial/'+this.name+'/'+this.name+'.less');
-	this.template('spec.js', 'partial/'+this.name+'/'+this.name+'-spec.js');
+	this.template('partial.js', 'partial/'+this.group+this.name+'/'+this.name+'.js');
+	this.template('partial.html', 'partial/'+this.group+this.name+'/'+this.name+'.html');
+	this.template('partial.less', 'partial/'+this.group+this.name+'/'+this.name+'.less');
+	this.template('spec.js', 'test/unit/partial/'+this.group+this.name+'/'+this.name+'.js');
 
-	cgUtils.addToFile('index.html','<script src="partial/'+this.name+'/'+this.name+'.js"></script>',cgUtils.PARTIAL_JS_MARKER,'  ');
+	cgUtils.addToFile('index.html','<script src="partial/'+this.group+this.name+'/'+this.name+'.js"></script>',cgUtils.PARTIAL_JS_MARKER,'  ');
 	this.log.writeln(' updating'.green + ' %s','index.html');
 
-	cgUtils.addToFile('css/app.less','@import "../partial/'+this.name+'/'+this.name+'.less";',cgUtils.PARTIAL_LESS_MARKER,'');
+	cgUtils.addToFile('css/app.less','@import "../partial/'+this.group+this.name+'/'+this.name+'.less";',cgUtils.PARTIAL_LESS_MARKER,'');
 	this.log.writeln(' updating'.green + ' %s','app/app.less');
 
 	if (this.route && this.route.length > 0){
-		cgUtils.addToFile('js/setup.js','when(\''+this.route+'\',{templateUrl: \'partial/'+this.name+'/'+this.name+'.html\'}).',cgUtils.ROUTE_MARKER,'\t');
+		cgUtils.addToFile('js/setup.js','when(\''+this.route+'\',{templateUrl: \'partial/'+this.group+this.name+'/'+this.name+'.html\'}).',cgUtils.ROUTE_MARKER,'\t');
 		this.log.writeln(' updating'.green + ' %s','js/setup.js');
 	}
 
