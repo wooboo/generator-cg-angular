@@ -1,4 +1,4 @@
-#generator-cg-angular
+#generator-cgk-angular
 
 >Yeoman Generator for Enterprise Angular Projects
 
@@ -41,9 +41,19 @@ Below is an explanation of the folder structure.
             my-partial.js .......... example partial controller
             my-partial.less ........ example partial LESS
             my-partial-spec.js ..... example partial unit test
+        /my-group .................. example partial group
+          /my-partial2 ............. example partial2
+              my-partial2.html ..... example partial2 html
+              my-partial2.js ....... example partial2 controller
+              my-partial2.less ..... example partial2 LESS
+              my-partial2-spec.js .. example partial2 unit test
     /service ....................... angular services folder
         my-service.js .............. example service
         my-service-spec.js ......... example service unit test
+    /tests ......................... root specs folder
+        /directive ................. root for directive specs
+        /filter .................... root for filter specs
+        /partial ................... root for partial specs
     /dist .......................... distributable version of app built using grunt and Gruntfile.js
     /bower_component................ 3rd party libraries managed by bower
     /node_modules .................. npm managed libraries used by grunt
@@ -59,13 +69,13 @@ Prerequisites: Node, Grunt, Yeoman, and Bower.  Once Node is installed, do:
 
 Next, install this generator:
 
-    npm install -g generator-cg-angular
+    npm install -g generator-cgk-angular
 
 To create a project:
 
     mkdir MyNewAwesomeApp
     cd MyNewAwesomeApp
-    yo cg-angular
+    yo cgk-angular
 
 Grunt Tasks
 -------------
@@ -92,10 +102,11 @@ There are generators for `directive`,`partial`,`service`, and `filter`.
 
 Running a generator:
 
-    yo cg-angular:directive my-awesome-directive
-    yo cg-angular:partial my-partial
-    yo cg-angular:service my-service
-    yo cg-angular:filter my-filter
+    yo cgk-angular:directive my-awesome-directive
+    yo cgk-angular:partial my-partial
+    yo cgk-angular:service my-service
+    yo cgk-angular:filter my-filter
+    yo cgk-angular:crud my-crud
 
 The name paramater passed (i.e. 'my-awesome-directive') will be used for directory and/or file names.  The generators will derive appropriate class names from this parameter (ex. 'my-awesome-directive' will convert to a class name of 'MyAwesomeDirective').
 
@@ -129,9 +140,10 @@ Importantly, `grunt-dom-munger` uses JQuery selectors to manage the parsing of t
 
 Release History
 -------------
-* 1/06/2013 - v2.1.0 - Nice enhancements for unit testing.  Specs are now placed in the same directory as the component they're testing.  Additionally, unit tests are now run during `grunt server` allowing for an easy and efficient test-driven workflow.
+* 1/16/2014 - v2.2.0 - Reverted old specs structure. Added CRUD generator. Added grouping of partials.
+* 1/06/2014 - v2.1.0 - Nice enhancements for unit testing.  Specs are now placed in the same directory as the component they're testing.  Additionally, unit tests are now run during `grunt server` allowing for an easy and efficient test-driven workflow.
 * 12/30/2013 - v2.0.0 - Big Update.  Angular 1.2 and Bootstrap 3.  Newer versions of Angular UI, Font Awesome, and JQuery.  Lodash was replaced with Underscore.  Lots of other small changes.
-* 9/06/2013 - V1.0.4 - Fixed templating issue with generated specs for `yo cg-angular:service` subgenerator.
+* 9/06/2013 - V1.0.4 - Fixed templating issue with generated specs for `yo cgk-angular:service` subgenerator.
 * 8/29/2013 - V1.0.3 - Renamed `/lib` back to `/bower_components` as clarity trumps brevity.  Renamed `/bin` to `/dist`. Fixed spelling error in generated directive's js template location.  Moved up to later version of `yeoman-generator` dependency to solve "Cannot read bold of undefined" error coming from Yeoman.  JSHint options now read from `.jshintrc`.  And more small stuff.
 * 7/08/2013 - V1.0.2 - Added utf8 charset to index.html.  Fix for "EMFile, too many open files" on `grunt watch` by no longer watching the `lib` folder.
 * 6/20/2013 - v1.0.1 - Fixed a ton of known issues.  Replaced `grunt-regarde` with `grunt-contrib-watch`.  Fixed and tweaked the unit test specs and `grunt test`.  Fixed issues with the build.  Generator is now ready for real use.
