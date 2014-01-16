@@ -1,0 +1,26 @@
+<div class="col-md-12" ng-controller="<%= ctrlname %>">
+ <div class="well">
+            <h3><%= name %></h3>
+        </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{item.Name}}</td>
+                <td><a class="btn btn-primary btn-xs" href="#/<%= name %>/{{item.Id}}"><span class="glyphicon glyphicon-edit"></span> Zmień</a> <a class="btn btn-danger btn-xs" href="" ng-click="delete(item.Id)"><span class="glyphicon glyphicon-remove"></span> Usuń</a>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <a class="btn btn-success" href="#/production-item/<%= name %>/new">
+            <span class="glyphicon glyphicon-plus"></span>
+            Nowy
+            </a>
+    </div>
+
+</div>

@@ -37,7 +37,7 @@ PartialGenerator.prototype.askFor = function askFor() {
 		this.route = props.route;
         this.group = '';
         if(props.group){
-            this.group = '/'+props.group;
+            this.group = props.group+'/';
         }
 		cb();
 	}.bind(this));

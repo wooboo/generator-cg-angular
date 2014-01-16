@@ -75,7 +75,7 @@ Now that the project is created, you have 3 simple Grunt commands available:
     grunt server  #This will run a development server with watch & livereload enabled.
     grunt test    #Run unit tests.
     grunt build   #Places a fully optimized (minified, concatenated, and more) in /dist
-    
+
 When `grunt server` is running, any changed javascript files will be validated using JSHint as well as have their appropriate unit tests executed.  Only the unit tests that correspond to the changed file will be run.
 
 Yeoman Subgenerators
@@ -104,7 +104,7 @@ One quick note, each sub-generator pulls the Angular app/module name from the pa
 Preconfigured Libraries
 -------------
 
-The new app will have a handful of preconfigured libraries included.  This includes Angular 1.2, Bootstrap 3, AngularUI Bootstrap, AngularUI Utils, FontAwesome 4, JQuery 2, Underscore 1.5, LESS 1.5, and Moment 2.5.  You may of course add to or remove any of these libraries.  But the work to integrate them into the app and into the build process has already been done for you. 
+The new app will have a handful of preconfigured libraries included.  This includes Angular 1.2, Bootstrap 3, AngularUI Bootstrap, AngularUI Utils, FontAwesome 4, JQuery 2, Underscore 1.5, LESS 1.5, and Moment 2.5.  You may of course add to or remove any of these libraries.  But the work to integrate them into the app and into the build process has already been done for you.
 
 Build Process
 -------------
@@ -123,7 +123,7 @@ manually add the annotations nor $inject).  Read more about [ngmin](https://gith
 
 The resulting build loads only a few highly compressed files.
 
-The build process uses [grunt-dom-munger](https://github.com/cgross/grunt-dom-munger) to pull script references from the `index.html`.  This means that **your index.html is the single source of truth about what makes up your app**.  Adding a new library, new controller, new directive, etc does not require that you update the build file.  Also the order of the scripts in your `index.html` will be maintained when they're concatenated.  
+The build process uses [grunt-dom-munger](https://github.com/wooboo/grunt-dom-munger) to pull script references from the `index.html`.  This means that **your index.html is the single source of truth about what makes up your app**.  Adding a new library, new controller, new directive, etc does not require that you update the build file.  Also the order of the scripts in your `index.html` will be maintained when they're concatenated.
 
 Importantly, `grunt-dom-munger` uses JQuery selectors to manage the parsing of the script tags. It is very easy to exclude certain scripts from the build.  For example, the project includes a references to the `livereload.js` from the `grunt-contrib-watch` task.  But this file should not be included in a production build.  Thus the `grunt-dom-munger` task is configured with a selector like `script[data-build!="exclude"]` and the script tag for `livereload.js` includes an attribute like `data-build="exclude"`.  You can use this flexibility in your project to include/exclude scripts in your production builds.
 

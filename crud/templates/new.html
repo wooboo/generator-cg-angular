@@ -1,0 +1,35 @@
+<div class="col-md-12" ng-controller="<%= ctrlname %>">
+    <form name="form" role="form" class="form-horizontal">
+        <div class="well">
+            <a class="btn btn-info" href="" ng-click="$back()">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                Powrót
+            </a>
+            <h3>Typ dokumentu </h3>
+        </div>
+        <fieldset>
+          <legend>Dane podstawowe</legend>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="name">Nazwa</label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-10 col-sm-5 form-control" id="name" name="name" ng-model="item.Name" placeholder="Nazwa typu dokumentu" required>
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save(form)" ng-disabled="form.$invalid">
+                <span class="glyphicon glyphicon-save"></span>
+                Save
+            </a>
+            <a class="btn btn-warning" ng-click="$cancel()">
+                <span class="glyphicon glyphicon-ban-circle"></span>
+                Cancel
+            </a>
+        </div>
+        <pre>{{item|json}}</pre>
+
+    </form>
+
+</div>
