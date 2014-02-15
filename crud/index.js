@@ -30,8 +30,11 @@ function generateFiles(gen, name, type){
     gen.template(type+'.less', 'partial/'+name+'/'+name+'-'+type+ '/'+type+'.less');
     gen.template(type+'-spec.js', 'test/unit/partial/'+name+'/'+name+'-'+type+ '/'+type+'.js');
 
-    cgUtils.addToFile('index.html','<script src="partial/'+name+'/'+name+'-'+type+ '/'+type+'.js"></script>',cgUtils.PARTIAL_JS_MARKER,'  ');
+    cgUtils.forEachFile('', /\.html/, function(file){
+        cgUtils.addToFile(file,'<script src="partial/'+name+'/'+name+'-'+type+ '/'+type+'.js"></script>',cgUtils.PARTIAL_JS_MARKER,'  ');
+    });
     gen.log.writeln(' updating'.green + ' %s','index.html');
+
 
     cgUtils.addToFile('css/app.less','@import "../partial/'+name+'/'+name+'-'+type+ '/'+type+'.less";',cgUtils.PARTIAL_LESS_MARKER,'');
     gen.log.writeln(' updating'.green + ' %s','app/app.less');

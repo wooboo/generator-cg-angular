@@ -37,22 +37,29 @@ DirectiveGenerator.prototype.askFor = function askFor() {
 
 DirectiveGenerator.prototype.files = function files() {
 
-	if (this.needpartial){
-		this.template('directive.js', 'directive/'+this.name+'/'+this.name+'.js');
-		this.template('directive.html', 'directive/'+this.name+'/'+this.name+'.html');
-		this.template('directive.less', 'directive/'+this.name+'/'+this.name+'.less');
-		this.template('spec.js', 'test/unit/directive/'+this.name+'/'+this.name+'.js');
+    var directiveName = this.name;
 
-		cgUtils.addToFile('index.html','<script src="directive/'+this.name+'/'+this.name+'.js"></script>',cgUtils.DIRECTIVE_JS_MARKER,'  ');
+	if (this.needpartial){
+		this.template('directive.js', 'directive/'+directiveName+'/'+directiveName+'.js');
+		this.template('directive.html', 'directive/'+directiveName+'/'+directiveName+'.html');
+		this.template('directive.less', 'directive/'+directiveName+'/'+directiveName+'.less');
+		this.template('spec.js', 'test/unit/directive/'+directiveName+'/'+directiveName+'.js');
+
+
+        cgUtils.forEachFile('', /\.html/, function(file){
+            cgUtils.addToFile(file,'<script src="directive/'+directiveName+'/'+directiveName+'.js"></script>',cgUtils.DIRECTIVE_JS_MARKER,'  ');
+        });
 		this.log.writeln(' updating'.green + ' %s','index.html');
 
-		cgUtils.addToFile('css/app.less','@import "../directive/'+this.name+'/'+this.name+'.less";',cgUtils.DIRECTIVE_LESS_MARKER,'');
+		cgUtils.addToFile('css/app.less','@import "../directive/'+directiveName+'/'+directiveName+'.less";',cgUtils.DIRECTIVE_LESS_MARKER,'');
 		this.log.writeln(' updating'.green + ' %s','app/app.less');
 	} else {
-		this.template('directive_simple.js', 'directive/'+this.name+'.js');
-		this.template('spec.js', 'directive/'+this.name+'-spec.js');
+		this.template('directive_simple.js', 'directive/'+directiveName+'.js');
+		this.template('spec.js', 'test/unit/directive/'+directiveName+'/'+directiveName+'.js');
 
-		cgUtils.addToFile('index.html','<script src="directive/'+this.name+'.js"></script>',cgUtils.DIRECTIVE_JS_MARKER,'  ');
+		cgUtils.forEachFile('', /\.html/, function(file){
+            cgUtils.addToFile(file,'<script src="directive/'+directiveName+'.js"></script>',cgUtils.DIRECTIVE_JS_MARKER,'  ');
+        });
 		this.log.writeln(' updating'.green + ' %s','index.html');
 	}
 

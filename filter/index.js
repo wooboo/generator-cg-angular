@@ -22,6 +22,9 @@ FilterGenerator.prototype.files = function files() {
 	this.template('filter.js', 'filter/'+this.name+'.js');
 	this.template('spec.js', 'test/unit/filter/'+this.name+'.js');
 
-	cgUtils.addToFile('index.html','<script src="filter/'+this.name+'.js"></script>',cgUtils.FILTER_JS_MARKER,'  ');
+    var name = this.name;
+	cgUtils.forEachFile('', /\.html/, function(file){
+        cgUtils.addToFile(file,'<script src="filter/'+name+'.js"></script>',cgUtils.FILTER_JS_MARKER,'  ');
+    });
 	this.log.writeln(' updating'.green + ' %s','index.html');
 };
